@@ -4,7 +4,7 @@
 # @Email:  support@weareag.co.uk
 # @Filename: ag-test.php
 # @Last modified by:   Aaron Bowie
-# @Last modified time: Monday, September 10th 2018, 3:22:29 pm
+# @Last modified time: Tuesday, September 11th 2018, 2:53:44 pm
 
 /*
 Plugin Name: AG Test WooCommerce Gateway
@@ -55,6 +55,43 @@ atg_fs();
 do_action( 'atg_fs_loaded' );
 
 
+
+
+// Include Gateway Class and register Payment Gateway with WooCommerce
+add_action( 'plugins_loaded', 'ag_test_init', 0 );
+function ag_test_init(){
+
+  if ( !class_exists( 'WC_Payment_Gateway' ) ) {
+      return;
+  }
+
+  include_once 'test-class.php';
+
+  // Show gateway to user/admin
+  function add_test_gateway( $methods ) {
+  	$show_visitors = false;
+  	if ($settings = get_option('woocommerce_ag_test_gateway_settings')) {
+  		if (isset($settings['enabled_non_admin']) && $settings['enabled_non_admin'] == 'yes') {
+  			$show_visitors = true;
+  		}
+  	}
+  	if (current_user_can('administrator') || WP_DEBUG || $show_visitors) {
+  		$methods[] = 'ag_test_gateway';
+  	}
+  	return $methods;
+  }
+  add_filter('woocommerce_payment_gateways', 'add_test_gateway' );
+
+  // Load image for FS
+  function test_custom_icon() {
+      return dirname( __FILE__ ) . '/plugin-icon.png';
+  }
+  atg_fs()->add_filter( 'plugin_icon', 'test_custom_icon' );
+
+}
+
+
+
 /*-----------------------------------------------------------------------------------*/
 /*	Licence management section
 /*-----------------------------------------------------------------------------------*/
@@ -78,7 +115,7 @@ if ( !function_exists( 'AG_plugins' ) ) {
         ?>
 		<div class="wrap about-wrap">
 			<h1>AG Plugins</h1>
-			<div class="about-text">Thank you for becoming part of the AG family!<br />Below is some tips on how to setup the plugin and how to get support.</div>
+			<div class="about-text">Thank you for becoming part of the AG family!</div>
 
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab nav-tab-active">Tips & Support</a>
@@ -86,50 +123,16 @@ if ( !function_exists( 'AG_plugins' ) ) {
 
 			<div class="changelog">
 				<h3>Activating the plugin</h3>
-
 				<div class="feature-section col two-col">
 					<div class="last-feature">
 						<h4>Why activate?</h4>
-						<p>You must activate the plugin to get the latest updates for the plugin, also we can only give support to the URL which has been activated.</p>
-					</div>
-
-				</div>
-				<hr />
-			</div>
-
-			<div class="changelog">
-				<h3>Setting up the plugin</h3>
-
-					<div class="last-feature">
-						<p>We aimed to keep this part of the plugin so simple it was silly, set up will only take around five minutes from start to finish. If you would like us to do the setup for you this can be done for £45.00. Simply email us at support@weareag.co.uk.</p>
-					</div>
-					<hr />
-
-			</div>
-
-			<div class="changelog">
-				<h3>Getting support</h3>
-
-					<div class="last-feature">
-						<p>On the left hand side under AG Plugins you will see contact us, here you can get in touch with us if you need help or have questions.</p>
-					</div>
-					<hr />
-
-			</div>
-
-
-			<div class="changelog">
-				<h3>What next?</h3>
-
-				<div class="feature-section col two-col">
-					<div class="last-feature">
-						<p>Now you successfully set up the plugin why not leave us a review of how super easy it was to setup?<br /></p>
+						<p>You must activate the plugin to get the latest updates for the plugin</p>
 					</div>
 				</div>
 				<hr />
 			</div>
-
 		</div>
+
 		<style>
 			.about-wrap .ag-badge {
 				position: absolute;
