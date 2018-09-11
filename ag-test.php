@@ -4,7 +4,7 @@
 # @Email:  support@weareag.co.uk
 # @Filename: ag-test.php
 # @Last modified by:   Aaron Bowie
-# @Last modified time: Tuesday, September 11th 2018, 2:53:44 pm
+# @Last modified time: Tuesday, September 11th 2018, 2:55:33 pm
 
 /*
 Plugin Name: AG Test WooCommerce Gateway
@@ -122,11 +122,10 @@ if ( !function_exists( 'AG_plugins' ) ) {
 			</h2>
 
 			<div class="changelog">
-				<h3>Activating the plugin</h3>
 				<div class="feature-section col two-col">
 					<div class="last-feature">
-						<h4>Why activate?</h4>
-						<p>You must activate the plugin to get the latest updates for the plugin</p>
+						<h4>Why Opt in?</h4>
+						<p>You must opt in to get the latest updates for the plugin</p>
 					</div>
 				</div>
 				<hr />
