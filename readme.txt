@@ -2,8 +2,8 @@
 Contributors: Aaron - We are AG
 Requires at least: 4.0
 Tested up to: 4.9.*
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: WooCommerce, Payment gateway, test gateway, debug gateway
 
 A simple test payment gateway for WooCommerce, The gateway is shown to admins only by default, anyone in WP_DEBUG mode or customers via tick box in the settings.
